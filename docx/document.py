@@ -176,6 +176,13 @@ class Document(ElementProxy):
         return self._body.tables
 
     @property
+    def notes(self):
+        """
+        A list of |Note| instances corresponding to the footnotes and endnotes
+        in the document.
+        """
+
+    @property
     def _block_width(self):
         """
         Return a |Length| object specifying the width of available "writing"

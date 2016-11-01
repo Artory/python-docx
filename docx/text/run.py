@@ -9,6 +9,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 from ..enum.style import WD_STYLE_TYPE
 from ..enum.text import WD_BREAK
 from .font import Font
+from ..parts.notes import Note
 from ..shape import InlineShape
 from ..shared import Parented
 
@@ -180,6 +181,13 @@ class Run(Parented):
     @underline.setter
     def underline(self, value):
         self.font.underline = value
+
+    @property
+    def notes(self):
+        """
+        Any |FootnoteReference| or |EndnoteReference| objects in this run.
+        """
+        return [Note(n) for n in self._r.footnotes_lst + self._r.endnotes_lst]
 
 
 class _Text(object):
