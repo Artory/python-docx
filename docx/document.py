@@ -11,6 +11,7 @@ from __future__ import (
 from .blkcntnr import BlockItemContainer
 from .enum.section import WD_SECTION
 from .enum.text import WD_BREAK
+from .opc.constants import RELATIONSHIP_TYPE as RT
 from .section import Section, Sections
 from .shared import ElementProxy, Emu
 
@@ -21,12 +22,13 @@ class Document(ElementProxy):
     Use :func:`docx.Document` to open or create a document.
     """
 
-    __slots__ = ('_part', '__body')
+    __slots__ = ('_part', '__body', '__notes')
 
     def __init__(self, element, part):
         super(Document, self).__init__(element)
         self._part = part
         self.__body = None
+        self.__notes = None
 
     def add_heading(self, text='', level=1):
         """
@@ -181,6 +183,12 @@ class Document(ElementProxy):
         A list of |Note| instances corresponding to the footnotes and endnotes
         in the document.
         """
+        if self.__notes is None:
+            self.__notes = []
+            for note_type in [RT.FOOTNOTES, RT.ENDNOTES]:
+                note_part = self._part.part_related_by(note_type)
+                self.__notes += note_part.notes
+        return self.__notes
 
     @property
     def _block_width(self):

@@ -200,3 +200,9 @@ from .text.run import CT_Br, CT_R, CT_Text
 register_element_cls('w:br', CT_Br)
 register_element_cls('w:r',  CT_R)
 register_element_cls('w:t',  CT_Text)
+
+from .note import CT_Footnotes, CT_Footnote, CT_Endnotes, CT_Endnote
+register_element_cls('w:footnotes', CT_Footnotes)
+register_element_cls('w:footnote',  CT_Footnote)
+register_element_cls('w:endnotes',  CT_Endnotes)
+register_element_cls('w:endnote',   CT_Endnote)

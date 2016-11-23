@@ -187,7 +187,8 @@ class Run(Parented):
         """
         Any |FootnoteReference| or |EndnoteReference| objects in this run.
         """
-        return [Note(n) for n in self._r.footnotes_lst + self._r.endnotes_lst]
+        return [Note(n, self) for n in
+                self._r.footnotes_lst + self._r.endnotes_lst]
 
 
 class _Text(object):

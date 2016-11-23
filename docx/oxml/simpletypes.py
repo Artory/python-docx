@@ -209,6 +209,18 @@ class ST_BrType(XsdString):
             )
 
 
+class ST_NoteType(XsdString):
+
+    @classmethod
+    def validate(cls, value):
+        cls.validate_string(value)
+        valid_values = ('separator', 'continuationSeparator')
+        if value not in valid_values:
+            raise ValueError(
+                "must be one of %s, got '%s'" % (valid_values, value)
+            )
+
+
 class ST_Coordinate(BaseIntType):
 
     @classmethod
